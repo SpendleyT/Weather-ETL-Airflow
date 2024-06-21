@@ -19,7 +19,7 @@ def main():
     
 
     #End process
-    logger.info(f"Starting ETL job -- {time.ctime()}")
+    logger.info(f"Ending ETL job -- {time.ctime()}")
 
 
 
