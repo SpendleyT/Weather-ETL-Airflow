@@ -13,8 +13,13 @@ from weather_app.processors.extract import ExtractData
 from weather_app.processors.transform import TransformData
 
 
-def _get_clean_weather(ti):
-    weather_data = TransformData()
+def _call_weather_api():
+    extract = ExtractData()
+    extract.extract_weather_records()
+
+
+def _get_clean_weather():
+    weather_data = TransformData.clean_data()
     weather_data.to_csv('/tmp/weather_data.csv', index=None, header=False)
 
 
@@ -39,6 +44,7 @@ with DAG('get_daily_weather', start_date=datetime(2024,6,18),
                 sunrise TIME,
                 sunset TIME,
                 temp_celsius NUMERIC(5, 2) NOT NULL,
+                temp_imperial NUMERIC(5, 2) NOT NULL,
                 humidity INTEGER NOT NULL DEFAULT 0,
                 uv_index INTEGER NOT NULL DEFAULT 0
             );
@@ -47,7 +53,7 @@ with DAG('get_daily_weather', start_date=datetime(2024,6,18),
 
     extract_weather = PythonOperator(
         task_id = 'extract_weather',
-        python_callable = ExtractData
+        python_callable = _call_weather_api
     )
 
     transform_weather = PythonOperator(

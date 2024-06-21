@@ -51,20 +51,23 @@ class s3BucketConnector():
         return files
 
 
-    def read_csv_to_df(self, key: str, decoding='utf-8', sep=','):
+    def read_json_to_df(self, key: str):
         """ 
-        Retrieve csv file from s3 and return it as a dataframe
+        Retrieve json file from s3 and return it as a dataframe
 
         :param key: file key on s3 bucket for match
 
         return: 
-            df: dataframe of csv file data
+            df: dataframe of json file data
         """
-        csv_obj = self._bucket.Object(key=key).get().get('Body').read().decode(decoding)
-        data = StringIO(csv_obj)
-        df = pd.read_csv(data, delimiter=sep)
-        return df
-
+        s3 = boto3.resource('s3')
+        obj = s3.Object(self._bucket_name, key)
+        file_content = obj.get().get('Body').read()
+        with BytesIO(file_content) as bio:
+            df = pd.read_json(bio)
+        weather_df = df.transpose()
+        return weather_df
+    
 
     def write_json_to_s3(self, data, key):
         """ 
