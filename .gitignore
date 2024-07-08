@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Airflow files
+logs/
+*.json
+
 # Distribution / packaging
 .Python
 build/

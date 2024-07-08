@@ -3,8 +3,8 @@ import time
 import logging
 import pandas as pd
 
-from configs.config import api_key, geoapify_key
-from common.s3 import S3BucketConfigs, s3BucketConnector
+from weather_app.configs.config import api_key, geoapify_key
+from weather_app.common.s3 import S3BucketConfigs, s3BucketConnector
 
 #Create logging object
 logger = logging.getLogger(__name__)
@@ -15,7 +15,7 @@ class TransformData():
         self.bucket_conn = s3BucketConnector(S3BucketConfigs.ETL_BUCKET.value)
 
     
-    def clean_data(self) -> pd.Dataframe:
+    def clean_data(self) -> pd.DataFrame:
         files_to_transform = self.bucket_conn.list_files_in_prefix('data_files/')
         full_df = pd.DataFrame()
         for json_file in files_to_transform[1:]:

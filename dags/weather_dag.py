@@ -1,5 +1,4 @@
 from datetime import datetime
-import json
 from pandas import json_normalize
 
 from airflow import DAG

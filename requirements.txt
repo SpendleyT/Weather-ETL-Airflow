@@ -1,4 +1,3 @@
-airflow==2.5.1
 boto3==1.28.64
 moto==4.1.3
 pandas==2.0.3

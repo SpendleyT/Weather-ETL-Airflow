@@ -5,9 +5,11 @@ import logging
 import json
 import pandas as pd
 from io import StringIO, BytesIO
-from common.constants import S3BucketConfigs
+from weather_app.common.constants import S3BucketConfigs
+
 
 logger = logging.getLogger(__name__)
+
 
 class s3BucketConnector():
     """Class for interacting with s3 Buckets"""

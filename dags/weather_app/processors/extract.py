@@ -4,8 +4,8 @@ import time
 import datetime
 from dateutil.relativedelta import relativedelta
 import logging
-from configs.config import api_key, geoapify_key
-from common.s3 import S3BucketConfigs, s3BucketConnector
+from weather_app.configs.config import api_key, geoapify_key
+from weather_app.common.s3 import S3BucketConfigs, s3BucketConnector
 
 
 logger = logging.getLogger(__name__)
